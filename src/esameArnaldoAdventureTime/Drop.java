@@ -50,6 +50,41 @@ public class Drop {
 	}
 
 
+//////////////////////////////////////inizio getters e setters
+	public Effect getEffetto() {
+		return effetto;
+	}
+	public void setEffetto(Effect effetto) {
+		this.effetto = effetto;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public int getValue() {
+		return value;
+	}
+	public void setValue(int value) {
+		this.value = value;
+	}
+	public String getDescrizione() {
+		return descrizione;
+	}
+	public void setDescrizione(String descrizione) {
+		this.descrizione = descrizione;
+	}
+	public int getTimeLimit() {
+		return timeLimit;
+	}
+	public void setTimeLimit(int timeLimit) {
+		this.timeLimit = timeLimit;
+	}
+	
+/////////////////////////////////////fine getters e setters	
+
+
 
 	
 

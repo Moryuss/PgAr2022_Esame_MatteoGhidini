@@ -10,7 +10,7 @@ public class Chest {
 	 */
 	public Chest() {
 		super();
-		this.contenuto=Drop.scegliDropPerChest();
+		this.contenuto=DROP_LIST.scegliDropPerChest();
 	}
 	
 	
