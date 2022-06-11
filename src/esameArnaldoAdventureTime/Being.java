@@ -134,32 +134,45 @@ public class Being {
 
 				//se lo scudo si rompe e il giocatore prende danni
 				if(this.inventory.get(i).getValue()<value) {
-					this.danneggiato(value-inventory.get(i).getValue());
+					this.danneggiato(value-inventory.get(i).getValue()); //prende danno
 					this.inventory.remove(i);
 				}
 
 				//se lo scudo non si rompe 
 				else if(this.inventory.get(i).getValue()>value) 
 					this.inventory.get(i).setValue(this.inventory.get(i).getValue()-value);
-					
-					//si rompe lo scudo ma il giocatore non prende danni
-					else if(this.inventory.get(i).getValue()>value) 
-						this.inventory.remove(i);
-					
-				}
+
+				//si rompe lo scudo ma il giocatore non prende danni
+				else if(this.inventory.get(i).getValue()>value) 
+					this.inventory.remove(i);
+
 			}
 		}
+	}
 
 
 
+ /**
+  * se il danno inflitto è inferiore alla vita del Being esso sopravvive perdendo una parte di vita
+  * @param nemicoColpito
+  * @return
+  */
+	public String infliggiDanno(Being nemicoColpito, int danno) {
 
-		public String infliggiDanno(Being nemicoColpito) {
-
-
-		}
-
-
-
-
+		nemicoColpito.set
 
 	}
+
+	/**
+	 * se il danno inflitto è superiore alla vita del mostro esso viene ucciso
+	 */
+	public void morto() {
+		this.vita=0;
+		
+	}
+
+
+
+
+
+}
