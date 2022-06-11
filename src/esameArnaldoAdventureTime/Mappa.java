@@ -35,6 +35,17 @@ public class Mappa {
 
 
 	private List<String[][]> mappa;
+	private Personaggio player;
+	
+	
+
+	public Personaggio getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Personaggio player) {
+		this.player = player;
+	}
 
 	public List<String[][]> getMappa() {
 		return mappa;
@@ -48,8 +59,9 @@ public class Mappa {
 	/**Creazione della mappa casuale
 	 * @param mappa
 	 */
-	public Mappa() {
+	public Mappa(Personaggio _player) {
 		super();
+		this.player=_player;
 		this.mappa = creaMappa();
 	}
 	////////////////////////////////////////////////////////////////////////////////////////////////////FINE COSTRUTTORE
@@ -72,7 +84,16 @@ public class Mappa {
 		return map;
 	}
 
-	/**crea una stanza
+	/**crea una stanza: <br>
+	 * crea: prima vuota<br>
+	 * aggiuge i bordi <br>
+	 * aggiungeentrata e uscita <br>
+	 * aggiunge il personaggio <br>
+	 * aggiunge chest <br>
+	 * aggiunge mostri <br>
+	 * aggiunge boss <br>
+	 * aggiunge scale <br>
+	 * aggiunge finalBoss in caso.
 	 * 
 	 * @return
 	 */
@@ -163,7 +184,7 @@ public class Mappa {
 	}
 
 	/**
-	 * stampa tutto il piano
+	 * stampa tutto il piano NB DEVI GIRARE IL CICLO FOR
 	 * @return
 	 */
 	public StringBuffer stampaMappaCompleta() {

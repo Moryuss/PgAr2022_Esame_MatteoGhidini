@@ -8,7 +8,7 @@ package esameArnaldoAdventureTime;
  */
 public class Movement {
 
-	public static String [][] movimento(String[][] mappa, int scelta){
+	public static String [][] movimento(String[][] mappa, int scelta, Personaggio player){
 
 		switch(scelta) {
 		case 1: return movimentoSU(mappa);
@@ -88,13 +88,15 @@ public class Movement {
 						}
 						else if(!(road[jMod][kMod].equals(ValoriStanza.VUOTO.value))){ ////////////temporaneo
 							if(road[jMod][kMod].equals(ValoriStanza.BOSS.value)){
+								road[jMod][kMod] = ValoriStanza.B_BATTLE.value;
 								return road;
 							}
 							if(road[jMod][kMod].equals(ValoriStanza.MOSTRO.value)){
+								road[jMod][kMod] = ValoriStanza.M_BATTLE.value;
 								return road;
-
 							}
 							if(road[jMod][kMod].equals(ValoriStanza.CHEST.value)){
+								road[jMod][kMod] = ValoriStanza.C_FOUND.value;
 								return road;
 							}
 							if(road[jMod][kMod].equals(ValoriStanza.SCALE_SU.value)){

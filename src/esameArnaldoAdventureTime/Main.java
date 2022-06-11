@@ -1,5 +1,7 @@
 package esameArnaldoAdventureTime;
 
+import java.util.ArrayList;
+
 import it.unibs.fp.mylib.InputDati;
 import it.unibs.fp.mylib.MyMath;
 import it.unibs.fp.mylib.MyMenu;
@@ -20,11 +22,42 @@ public class Main {
 			sceltaPrincipale= menuPrincipale.scegli(); //prima scelta
 
 			if (sceltaPrincipale==1) {//START THE GAME
-				Mappa m1 = new Mappa();
+
+				//creazione personaggio (nome) e mappa totale
+				Mappa m1 = new Mappa(new Personaggio(InputDati.leggiStringaNonVuota("Lascia che il tuo nome venga scritto sugli annali akashici: ")));
+				Mappa m2 = new Mappa(m1.getPlayer());
+				Mappa m3 = new Mappa(m1.getPlayer());
+				ArrayList<Mappa> Dungeon = new ArrayList<>();
+				Dungeon.add(m1);
+				Dungeon.add(m2);
+				Dungeon.add(m3);
+
 
 				do {
-					System.out.println(m1.stampaStanza(0));
-					Movement.movimento(m1.getMappa().get(0), conversioneSceltaInInt());
+
+					int numeroStanzaDelPiano=0;
+					int piano=0;
+
+					System.out.println(Dungeon.get(piano).stampaStanza(numeroStanzaDelPiano));
+					Movement.movimento(Dungeon.get(piano).getMappa().get(numeroStanzaDelPiano), conversioneSceltaInInt(), m1.getPlayer());
+
+					for(int i=0; i< Dungeon.get(piano).getMappa().get(numeroStanzaDelPiano).length; i++) {
+						for(int j=0; j<Dungeon.get(piano).getMappa().get(numeroStanzaDelPiano)[i].length; j++) {
+							if(Dungeon.get(piano).getMappa().get(numeroStanzaDelPiano)[i][j].equals(ValoriStanza.B_BATTLE.value)) {
+								Fight battle = new Fight(Dungeon.get(piano).getPlayer(), new Mostro());
+							}
+							if(Dungeon.get(piano).getMappa().get(numeroStanzaDelPiano)[i][j].equals(ValoriStanza.D_BATTLE.value)) {
+
+							}
+							if(Dungeon.get(piano).getMappa().get(numeroStanzaDelPiano)[i][j].equals(ValoriStanza.M_BATTLE.value)) {
+
+							}
+							if(Dungeon.get(piano).getMappa().get(numeroStanzaDelPiano)[i][j].equals(ValoriStanza.C_FOUND.value)) {
+
+							}
+						}
+					}
+
 				}while(b);////////////condizione di uscita (morte o disfatta o resa)
 
 
