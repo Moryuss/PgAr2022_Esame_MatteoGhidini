@@ -37,6 +37,21 @@ public class Being {
 		this.nome = nome;
 	}
 
+	/**
+	 * costruttore senza inventario
+	 * @param nome
+	 * @param vita
+	 * @param baseAtk
+	 * @param baseDef
+	 */
+	public Being(String nome, int vita, int baseAtk, int baseDef) {
+		super();
+		this.nome = nome;
+		this.vita = vita;
+		this.baseAtk = baseAtk;
+		this.baseDef = baseDef;
+	}
+
 	///////////////////////////////////////////inizio getters e setters
 	public String getNome() {
 		return nome;
@@ -93,7 +108,7 @@ public class Being {
 	 * @param d
 	 * @param i
 	 */
-	public voidsetSpecificDrop(Drop d, int i) {
+	public void setSpecificDrop(Drop d, int i) {
 		this.inventory[i] = d;
 	}
 	
