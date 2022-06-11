@@ -13,6 +13,15 @@ import it.unibs.fp.mylib.EstrazioniCasuali;
  */
 public class Mappa {
 
+	//SIGNIFICA 1/POSSIBILITA_SPAWN_CHEST che spawni!
+	private static final int POSSIBILITA_SPAWN_CHEST = 200;
+
+	//SIGNIFICA 1/POSSIBILITA_SPAWN_MOSTRO che spawni!
+	private static final int POSSIBILITA_SPAWN_MOSTRO = 50;
+
+	//SIGNIFICA 1/POSSIBILITA_SPAWN_BOSS che spawni! NB spawnerà sempre 1 e 1 solo
+	private static final int POSSIBILITA_SPAWN_BOSS = 100;
+
 	//le grandezze altezza e larghezza stanza saranno prese tra MIN e MAX
 	private static final int GRANDEZZA_STANZA_MAX = 40;
 	private static final int GRANDEZZA_STANZA_MIN = 20;
@@ -20,6 +29,10 @@ public class Mappa {
 	//numerodi stanze casualmente scelto tra il min e max
 	private static final int NUMERO_MINIMO_STANZE = 2;
 	private static final int NUMERO_MASSIMO_STANZE = 3;
+
+
+
+
 
 	private List<String[][]> mappa;
 
@@ -31,6 +44,7 @@ public class Mappa {
 		this.mappa = mappa;
 	}
 
+	///////////////////////////////////////////////////////////////////////////////////////////////////COSTRUTTORE
 	/**Creazione della mappa casuale
 	 * @param mappa
 	 */
@@ -38,6 +52,8 @@ public class Mappa {
 		super();
 		this.mappa = creaMappa();
 	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////FINE COSTRUTTORE
+
 
 	/**
 	 * crea una list di stanze
@@ -64,12 +80,12 @@ public class Mappa {
 		String[][] stanza = new String[EstrazioniCasuali.estraiIntero(GRANDEZZA_STANZA_MIN,GRANDEZZA_STANZA_MAX)][EstrazioniCasuali.estraiIntero(GRANDEZZA_STANZA_MIN, GRANDEZZA_STANZA_MAX)];
 
 		//impostazione a vuoto di tutto
-		for(int j=0; j< stanza.length-1; j++) {
-			for(int k=0; k<stanza[j].length; k++) {
-				stanza[j][k] = ValoriStanza.VUOTO.value;
+		for(int i=0; i< stanza.length-1; i++) {
+			for(int j=0; j<stanza[i].length; j++) {
+				stanza[i][j] = ValoriStanza.VUOTO.value;
 			}
 		}
-		/////////////////////////////////////////////////inizio muri
+		/////////////////////////////////////////////////////////////////////inizio muri
 		for(int i=0; i<stanza[0].length; i++) 
 			stanza[0][i] = ValoriStanza.MURO.value;
 		for(int i=0; i<stanza[stanza.length-1].length; i++)
@@ -81,13 +97,53 @@ public class Mappa {
 
 		stanza[0][stanza[0].length/2] = "^";  //passaggio all'altra stanza
 		stanza[stanza.length-1][stanza[0].length/2] = "_"; //entrata
-		/////////////////////////////////////////////////fine muri
+		/////////////////////////////////////////////////////////////////////fine muri
+
+		
+		/////////////////////////////////////////////////personaggio
+		stanza[stanza.length-2][stanza[0].length/2] = ValoriStanza.GIOCATORE.value;
+		
+		
+		/////////////////////////////////////////////////chest
+		for(int i=0; i< stanza.length-1; i++) {
+			for(int j=0; j<stanza[i].length; j++) {
+				if(stanza[i][j].equals(ValoriStanza.VUOTO.value)) 
+					if(EstrazioniCasuali.estraiIntero(1, POSSIBILITA_SPAWN_CHEST) == 1 )  stanza[i][j] = ValoriStanza.CHEST.value;
+			}
+		}
+
+		
+		
+		////////////////////////////////////////////////mostri
+		for(int i=0; i< stanza.length-1; i++) {
+			for(int j=0; j<stanza[i].length; j++) {
+				if(stanza[i][j].equals(ValoriStanza.VUOTO.value)) 
+					if(EstrazioniCasuali.estraiIntero(1, POSSIBILITA_SPAWN_MOSTRO) == 1 )  stanza[i][j] = ValoriStanza.MOSTRO.value;
+			}
+		}
+
+		
+		
+		////////////////////////////////////////////////boss
+		boolean bossSpawned = false;
+
+		for(int i=0; i< stanza.length-1; i++) {
+			for(int j=0; j<stanza[i].length; j++) {
+				if(stanza[i][j].equals(ValoriStanza.VUOTO.value)) 
+					if(EstrazioniCasuali.estraiIntero(1, POSSIBILITA_SPAWN_BOSS) == 1 ) {
+						stanza[i][j] = ValoriStanza.BOSS.value;
+						bossSpawned =true;
+						break;
+					}
+			}
+			if(bossSpawned) break;
+		}
 
 		return stanza;
 	}
 
 
-	
+
 	/**
 	 * stampa la n.esima stanza
 	 * @param numeroStanza
@@ -96,7 +152,7 @@ public class Mappa {
 	public StringBuffer stampaStanza(int numeroStanza) {
 
 		StringBuffer stampa = new StringBuffer("");
-		
+
 		for(int i=0; i< mappa.get(numeroStanza).length; i++) {
 			for(int j=0; j<mappa.get(numeroStanza)[i].length; j++) {
 				stampa.append(mappa.get(numeroStanza)[i][j]);
