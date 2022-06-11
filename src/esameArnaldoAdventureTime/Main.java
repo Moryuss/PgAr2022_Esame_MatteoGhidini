@@ -143,7 +143,11 @@ public class Main {
 				scelte.add(inv.get(i));
 			}
 
-			String[] scelteArray =  scelte.toArray(new String[scelte.size()]);
+			String[] scelteArray = new String[scelte.size()];
+			for(int i=0; i< scelte.size(); i++) {
+			
+			scelteArray[i] =  scelte.get(i).getNome();
+			}
 			return scelteArray;
 		}
 	}
