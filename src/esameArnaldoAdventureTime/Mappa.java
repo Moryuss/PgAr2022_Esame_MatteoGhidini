@@ -18,9 +18,9 @@ public class Mappa {
 	private static final int GRANDEZZA_STANZA_MIN = 20;
 
 	//numerodi stanze casualmente scelto tra il min e max
-	private static final int NUMERO_MINIMO_STANZE = 1;
-	private static final int NUMERO_MASSIMO_STANZE = 2;
-	
+	private static final int NUMERO_MINIMO_STANZE = 2;
+	private static final int NUMERO_MASSIMO_STANZE = 3;
+
 	private List<String[][]> mappa;
 
 	public List<String[][]> getMappa() {
@@ -63,53 +63,60 @@ public class Mappa {
 	private String[][] creaStanza() {
 		String[][] stanza = new String[EstrazioniCasuali.estraiIntero(GRANDEZZA_STANZA_MIN,GRANDEZZA_STANZA_MAX)][EstrazioniCasuali.estraiIntero(GRANDEZZA_STANZA_MIN, GRANDEZZA_STANZA_MAX)];
 
-
-		/////////////////////////////////////////////////inizio muri
-		for(int i=0; i<stanza[0].length; i++) 
-			stanza[0][i] = "#";
-		for(int i=0; i<stanza[stanza.length-1].length; i++)
-			stanza[stanza.length-1][i] = "#";
-		for(int j=0; j<stanza.length; j++)
-			stanza[j][0] = "#";
-		for(int j=0; j<stanza.length; j++)
-			stanza[0][stanza[j].length-1] = "#";
-		
-		stanza[0][stanza[0].length/2] = "^";  //passaggio all'altra stanza
-		
-		/////////////////////////////////////////////////fine muri
-		/*
-		for(int j=1; j< this.road.length-1; j++) {
-			for(int k=0; k<this.road[j].length; k++) {
-				this.road[j][k] = Valori.VUOTO.value;
+		//impostazione a vuoto di tutto
+		for(int j=0; j< stanza.length-1; j++) {
+			for(int k=0; k<stanza[j].length; k++) {
+				stanza[j][k] = ValoriStanza.VUOTO.value;
 			}
 		}
+		/////////////////////////////////////////////////inizio muri
+		for(int i=0; i<stanza[0].length; i++) 
+			stanza[0][i] = ValoriStanza.MURO.value;
+		for(int i=0; i<stanza[stanza.length-1].length; i++)
+			stanza[stanza.length-1][i] = ValoriStanza.MURO.value;
+		for(int j=0; j<stanza.length; j++)
+			stanza[j][0] = ValoriStanza.MURO.value;
+		for(int j=0; j<stanza.length; j++)
+			stanza[j][stanza[j].length-1] = ValoriStanza.MURO.value;
 
-		for(int j=2; j< this.road.length-1; j=j+2) {
-			for(int k=0; k<this.road[j].length; k=k+2) {
-				this.road[j][k] = Valori.LINE.value;
-			}
-		 */
+		stanza[0][stanza[0].length/2] = "^";  //passaggio all'altra stanza
+		stanza[stanza.length-1][stanza[0].length/2] = "_"; //entrata
+		/////////////////////////////////////////////////fine muri
+
 		return stanza;
 	}
 
 
+	
+	/**
+	 * stampa la n.esima stanza
+	 * @param numeroStanza
+	 * @return
+	 */
+	public StringBuffer stampaStanza(int numeroStanza) {
+
+		StringBuffer stampa = new StringBuffer("");
+		
+		for(int i=0; i< mappa.get(numeroStanza).length; i++) {
+			for(int j=0; j<mappa.get(numeroStanza)[i].length; j++) {
+				stampa.append(mappa.get(numeroStanza)[i][j]);
+			}
+			stampa.append("\n");
+		}
+		return stampa;
+	}
 
 	/**
 	 * stampa tutto il piano
 	 * @return
 	 */
-	public String stampaMappaCompleta() {
+	public StringBuffer stampaMappaCompleta() {
 
-		String stampa = new String("");
-		
+		StringBuffer stampa = new StringBuffer("");
+
 		for(int k=0; k<mappa.size(); k++) {
-			for(int i=0; i< mappa.get(k).length; i++) {
-				for(int j=0; j<mappa.get(k)[i].length; j++) {
-					stampa.concat(mappa.get(k)[i][j]);
-				}
-				stampa.concat("\n");
-			}
-			stampa.concat("\tV\n\tV\n\tV");
+			stampa.append(stampaStanza(k));
+			if(k<mappa.size()-1)stampa.append("\tV\n\tV\n\tV\n");
 		}
 
 		return stampa;

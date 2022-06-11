@@ -6,7 +6,7 @@ public class Main {
 		
 	Mappa m = new Mappa();
 	
-	System.out.println(m.stampaMappaCompleta());
+	System.out.println(m.stampaStanza(1));
 
 		
 	}
