@@ -1,5 +1,8 @@
 package esameArnaldoAdventureTime;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
@@ -11,7 +14,7 @@ public class Mostro extends Being {
 	//	vita minima e massima del mostro
 	private static final int MIN_VITA_MOSTRO = 15;
 	private static final int MAX_VITA_MOSTRO = 25;
-	
+
 	//	difesa base del moasto
 	private static final int DEF_MOSTRO = 5;
 	//attacco base del mostro
@@ -19,17 +22,25 @@ public class Mostro extends Being {
 
 
 	//permutazioni del nome del boss finale : Dijkstra
-	public static final HashSet<String> permutazioni = getPermutation("Dijkstra");
-	public static String[] permArray= (String[]) permutazioni.toArray();
+	public static final HashSet<String> permutazioni = getPermutation("dijkstra");
+	public static ArrayList<String> tmp = new ArrayList<String>(permutazioni);
+
+	public static String[] permArray =  tmp.toArray(new String[tmp.size()]);
 
 
 	/**
 	 * costruttore del mostro
 	 */
 	public Mostro() {
-		super(permArray[EstrazioniCasuali.estraiIntero(0,permArray.length-1)], EstrazioniCasuali.estraiIntero(MIN_VITA_MOSTRO,MAX_VITA_MOSTRO) , ATK_MOSTRO, DEF_MOSTRO);
-		this.setSpecificDrop(DROP_LIST.scegliArma(),0);
-		// TODO Auto-generated constructor stub
+		super(nomeDemone(permArray), EstrazioniCasuali.estraiIntero(MIN_VITA_MOSTRO,MAX_VITA_MOSTRO) , ATK_MOSTRO, DEF_MOSTRO);
+		this.setInventory(creaInv());
+	}
+
+
+	private static HashMap<Integer,Drop> creaInv(){
+		HashMap<Integer,Drop> invent = new HashMap<Integer,Drop>();
+		invent.put(0,DROP_LIST.scegliArma());
+		return invent;
 	}
 
 
@@ -72,6 +83,16 @@ public class Mostro extends Being {
 		}
 		return permutations;
 	}
-}
 
+
+	/**
+	 * estrae nome demone
+	 * @param perm
+	 * @return
+	 */
+	public static String nomeDemone(String [] perm) {
+		return perm[EstrazioniCasuali.estraiIntero(0,perm.length-1)];
+
+	}
+}
 

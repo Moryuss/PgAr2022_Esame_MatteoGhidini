@@ -81,14 +81,25 @@ public class Fight {
 
 
 		for(int i=0;i<p1.getInventory().size(); i++) {
+			if(p1.getInventory().get(i)==null)  {
+				potenzaP1=1;
+				break;
+			}
 			if(p1.getInventory().get(i).getEffetto().equals(Effect.ATKUP)) 
 				potenzaP1 =p1.getInventory().get(i).getValue();
 		}
-
+		
 		for(int i=0;i<p2.getInventory().size(); i++) {
-			if(p2.getInventory().get(i).getEffetto().equals(Effect.DEFUP)) 
+			if(p2.getInventory().get(i)==null)  {
+				difesaP2=1;
+				break;
+			}
+			if(p2.getInventory().get(i).getEffetto().equals(Effect.DEFUP)) {
 				difesaP2 = p2.getInventory().get(i).getValue();
+				
+			}
 		}
+	
 
 		double damage = (((2*potenzaP1*p1.getBaseAtk()) / 25*difesaP2) +2) * modifier;
 

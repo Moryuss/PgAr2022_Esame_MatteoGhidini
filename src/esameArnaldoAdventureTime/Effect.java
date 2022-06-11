@@ -9,5 +9,5 @@ package esameArnaldoAdventureTime;
  */
 public enum Effect {
 
-	ATKUP, DEFUP, HEALING
+	ATKUP, DEFUP, HEALING;
 }

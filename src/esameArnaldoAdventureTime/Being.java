@@ -54,7 +54,17 @@ public class Being {
 		this.vita = vita;
 		this.baseAtk = baseAtk;
 		this.baseDef = baseDef;
+		this.setInventory(creaInv());
+
 	}
+
+	private static HashMap<Integer,Drop> creaInv(){
+		HashMap<Integer,Drop> invent = new HashMap<Integer,Drop>();
+		invent.put(0, DROP_LIST.pugni);
+		return invent;
+	}
+
+
 
 	///////////////////////////////////////////inizio getters e setters
 	public String getNome() {
@@ -130,7 +140,11 @@ public class Being {
 	 */
 	public String danneggiato(int value) {
 		for(int i=0; i<this.inventory.size(); i++) {
-			if(this.inventory.get(i).getEffetto().equals(Effect.DEFUP)) { //controllo durabilita scudo
+			if(this.inventory.get(i)==null) {
+				togliVita(value);
+				return String.format("%s ha subito %d danni ", this.nome,value) ;
+			}
+			else if(this.inventory.get(i).getEffetto().equals(Effect.DEFUP)) { //controllo durabilita scudo
 
 				//se lo scudo si rompe e il giocatore prende danni
 				if(this.inventory.get(i).getValue()<value) {
@@ -154,7 +168,7 @@ public class Being {
 					this.inventory.remove(i);
 					return String.format("%s di %s è andato distrutto",tmp.getNome(), this.nome);
 				}
-
+				
 			}
 		}
 		return "ERROR";

@@ -18,6 +18,7 @@ public class DROP_LIST {
 	private static final int MIN_DMG_UP = 35;
 	private static final int MAX_DMG_UP = 55;
 
+	public static final Drop pugni = new Drop(Effect.ATKUP, "pugni", 1, "i tuoi inutili pugni", -1);
 	///////////////DROP////////////////////
 	//////////	Effect effetto, String nome, int value, String descrizione, int timeLimit
 
@@ -25,6 +26,7 @@ public class DROP_LIST {
 	public static final Drop spada = new Drop(Effect.ATKUP,  "spada", EstrazioniCasuali.estraiIntero(MIN_DMG_UP, MAX_DMG_UP), "una spada comune senza alcun valore", -1);
 	public static final Drop scudo = new Drop(Effect.DEFUP, "scudo", DEFUP_VALUE, "uno scudo comune senza alcun valore", -1);
 	public static final Drop pozione = new Drop(Effect.HEALING, "pozione", Personaggio.MAX_VITA/2, "una pozione di un alchimista fallito", 1);
+	public static final Drop FINAL_BOSS_WEAPON = new Drop(Effect.ATKUP, "Spada di Crono", 70, "La spada rubata al dio della creazione la settimana scorsa", -1);
 
 
 
@@ -49,7 +51,7 @@ public class DROP_LIST {
 	 * @return
 	 */
 	public static Drop scegliArma() {
-		return DROP_LIST.dropAtk.get(EstrazioniCasuali.estraiIntero(0,DROP_LIST.dropAtk.size()-1));
+		return DROP_LIST.dropAtk.get(EstrazioniCasuali.estraiIntero(1,DROP_LIST.dropAtk.size()));
 	}
 
 	/**
@@ -57,7 +59,7 @@ public class DROP_LIST {
 	 * @return
 	 */
 	public static Drop scegliDifesa() {
-		return DROP_LIST.dropDef.get(EstrazioniCasuali.estraiIntero(0,DROP_LIST.dropDef.size()-1));
+		return DROP_LIST.dropDef.get(EstrazioniCasuali.estraiIntero(1,DROP_LIST.dropDef.size()));
 	}
 
 	/**
@@ -65,7 +67,7 @@ public class DROP_LIST {
 	 * @return
 	 */
 	public static Drop scegliHealing() {
-		return DROP_LIST.dropHealing.get(EstrazioniCasuali.estraiIntero(0,DROP_LIST.dropHealing.size()-1));
+		return DROP_LIST.dropHealing.get(EstrazioniCasuali.estraiIntero(1,DROP_LIST.dropHealing.size()));
 	}
 
 
