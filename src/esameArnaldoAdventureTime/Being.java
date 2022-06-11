@@ -120,7 +120,7 @@ public class Being {
 	 * se il Being viene danneggiato DIRETTAMENTE SENZA SCUDO oppure lo scudo non era abbastanza forte per attutire tutto il colpo
 	 * @param value
 	 */
-	private void danneggiato(int value) {
+	private void togliVita(int value) {
 		this.vita =this.vita - value;
 	}
 
@@ -128,48 +128,48 @@ public class Being {
 	 * 
 	 * @param value
 	 */
-	private void danneggiatoConScudo(int value) {
+	public String danneggiato(int value) {
 		for(int i=0; i<this.inventory.size(); i++) {
 			if(this.inventory.get(i).getEffetto().equals(Effect.DEFUP)) { //controllo durabilita scudo
 
 				//se lo scudo si rompe e il giocatore prende danni
 				if(this.inventory.get(i).getValue()<value) {
-					this.danneggiato(value-inventory.get(i).getValue()); //prende danno
+					this.togliVita(value-inventory.get(i).getValue()); //prende danno
+
+					Drop tmp = this.inventory.get(i);
 					this.inventory.remove(i);
+					return String.format("%s ha subito %d danni dopo che %s si è rotto", this.nome,value -tmp.getValue(), tmp.getNome());
 				}
 
 				//se lo scudo non si rompe 
-				else if(this.inventory.get(i).getValue()>value) 
+				else if(this.inventory.get(i).getValue()>value) {
 					this.inventory.get(i).setValue(this.inventory.get(i).getValue()-value);
+					return String.format("%s non ha subito danni ma %s ha perso %d di durabilita", this.nome, this.inventory.get(i).getNome(), value);
+				}
 
 				//si rompe lo scudo ma il giocatore non prende danni
-				else if(this.inventory.get(i).getValue()>value) 
+				else if(this.inventory.get(i).getValue()>value) {
+
+					Drop tmp = this.inventory.get(i);
 					this.inventory.remove(i);
+					return String.format("%s di %s è andato distrutto",tmp.getNome(), this.nome);
+				}
 
 			}
 		}
+		return "ERROR";
 	}
 
-
-
- /**
-  * se il danno inflitto è inferiore alla vita del Being esso sopravvive perdendo una parte di vita
-  * @param nemicoColpito
-  * @return
-  */
-	public String infliggiDanno(Being nemicoColpito, int danno) {
-
-		nemicoColpito.set
-
-	}
 
 	/**
 	 * se il danno inflitto è superiore alla vita del mostro esso viene ucciso
 	 */
 	public void morto() {
 		this.vita=0;
-		
+
 	}
+
+
 
 
 

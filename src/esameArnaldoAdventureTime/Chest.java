@@ -12,6 +12,17 @@ public class Chest {
 		super();
 		this.contenuto=DROP_LIST.scegliDropPerChest();
 	}
+
+	///getter e setter
+	public Drop getContenuto() {
+		return contenuto;
+	}
+
+	public void setContenuto(Drop contenuto) {
+		this.contenuto = contenuto;
+	}
+	///fine getter e setter
+	
 	
 	
 }

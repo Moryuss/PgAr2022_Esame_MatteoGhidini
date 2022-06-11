@@ -17,28 +17,30 @@ public class Personaggio extends Being {
 	*/	
 	
 
-	/**Costruttore assoluto NEL CASO SERVA MA NON DOVREBBE
+	/*Costruttore assoluto NEL CASO SERVA MA NON DOVREBBE (comunque sbagliato x inventario array
 	 * @param nome
 	 * @param vita
 	 * @param baseAtk
 	 * @param baseDef
 	 * @param inventory
-	 */
-	public Personaggio(String nome, int vita, int baseAtk, int baseDef, Drop[] inventory) {
+	 
+	public Personaggio(String nome, int vita, int baseAtk, int baseDef,  inventory) {
 		super(nome, vita, baseAtk, baseDef, inventory);
 		// TODO Auto-generated constructor stub
 	}
-
+*/
+	/*
 	/**costruttore senza inventario
 	 * @param nome
 	 * @param vita
 	 * @param baseAtk
 	 * @param baseDef
-	 */
+	 
 	public Personaggio(String nome, int vita, int baseAtk, int baseDef) {
 		super(nome, vita, baseAtk, baseDef);
 		// TODO Auto-generated constructor stub
 	}
+	*/
 	
 	
 	/**
